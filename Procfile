@@ -1,0 +1,1 @@
+web: ./build/install/to-the-moo/bin/to-the-moo
