@@ -5,6 +5,7 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.request.*
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
@@ -16,17 +17,16 @@ fun Application.configureRouting() {
                 .addHeader("Content-Type", "application/json")
                 .build()
             val response = OkHttpClient().newBuilder()
-                .build().newCall(request).execute().body?.string() ?: "OUO?"
+                .build().newCall(request).execute().body?.string() ?: "NULL RESPONSE"
             call.respondText(response)
         }
     }
     routing {
         post("/post") {
-            val text = call.receiveText()
-            val value = if(text == "BUY") {
-                "梭哈買"
-            } else {
-                "梭哈賣"
+            val value = when (call.receiveText()) {
+                "BUY" -> "show hand buy"
+                "SELL" -> "show hand sell"
+                else -> "show hand what?"
             }
             call.respondText(value, status = HttpStatusCode.OK)
         }
