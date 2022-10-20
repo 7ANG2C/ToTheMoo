@@ -22,7 +22,8 @@ fun Application.configureRouting() {
     }
     routing {
         post("/post") {
-            call.respondText("POST SUCCESS", status = HttpStatusCode.Created)
+            val text = call.receiveText()
+            call.respondText(text, status = HttpStatusCode.OK)
         }
     }
 }
