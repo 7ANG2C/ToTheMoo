@@ -23,6 +23,11 @@ fun Application.configureRouting() {
     routing {
         post("/post") {
             val text = call.receiveText()
+            if(text == "BUY") {
+                "梭哈買"
+            } else {
+                "梭哈賣"
+            }
             call.respondText(text, status = HttpStatusCode.OK)
         }
     }
